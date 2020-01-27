@@ -27,7 +27,7 @@ client := zirael.NewClient(
 		"YOUR_API_ID",
 		"YOUR_NONCE", zirael.WithHTTPTimeout(10 * time.Second))
 
-	request, err := client.Get("https://test-apisbn.kemenkeu.go.id/v1/bank", nil)
+	request, err := client.Get("https://awsome.com", nil)
 
 	if err != nil {
 		panic(err)
