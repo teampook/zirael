@@ -1,6 +1,7 @@
 package zirael
 
 import (
+	"bytes"
 	"crypto/hmac"
 	"crypto/md5"
 	"crypto/sha256"
@@ -79,7 +80,9 @@ func (c *Client) Post(url string, body io.Reader, headers http.Header) (*http.Re
 		return response, errors.Wrap(err, "POST - request creation failed")
 	}
 
-	amx, err := c.AmxTokenGenerate(url, http.MethodPost, nil)
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(body)
+	amx, err := c.AmxTokenGenerate(url, http.MethodPost, StreamToByte(body))
 
 	if err != nil {
 		return response, errors.Wrap(err, "POST - amx token creation failed")
@@ -139,4 +142,10 @@ func ComputeHMAC256(payload string, secret string) (string, error) {
 		return "", err
 	}
 	return base64.StdEncoding.EncodeToString(h.Sum(nil)), nil
+}
+
+func StreamToByte(stream io.Reader) []byte {
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(stream)
+	return buf.Bytes()
 }
