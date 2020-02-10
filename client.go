@@ -80,8 +80,6 @@ func (c *Client) Post(url string, body io.Reader, headers http.Header) (*http.Re
 		return response, errors.Wrap(err, "POST - request creation failed")
 	}
 
-	buf := new(bytes.Buffer)
-	buf.ReadFrom(body)
 	amx, err := c.AmxTokenGenerate(url, http.MethodPost, StreamToByte(body))
 
 	if err != nil {
