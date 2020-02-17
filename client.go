@@ -27,11 +27,11 @@ type IClient interface {
 }
 
 type Client struct {
-	apiID   string
-	apiKey  string
-	nonce   string
-	client  IDoer
-	timeout time.Duration
+	apiID    string
+	apiKey   string
+	nonce    string
+	client   IDoer
+	timeout  time.Duration
 }
 
 func NewClient(apiKey, apiID, nonce string, opts... Option) *Client{

@@ -9,3 +9,9 @@ func WithHTTPTimeout(timeout time.Duration) Option{
 		client.timeout = timeout
 	}
 }
+
+func WithHTTPClient(client IDoer) Option {
+	return func(c *Client) {
+		c.client = client
+	}
+}
